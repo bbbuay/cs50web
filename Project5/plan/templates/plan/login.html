@@ -1,0 +1,32 @@
+{% extends "plan/layout.html" %}
+
+{% block body %}
+
+<div id="login-part">
+
+    <h4>Login</h4>
+
+    {% if message %}
+    <div>{{ message }}</div>
+    {% endif %}
+
+    <form action="{% url 'login' %}" method="post" id="login-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="password" name="password" placeholder="Password">
+        </div>
+        <div class="form-group" id="login-button-div">
+            <input class="btn login-button btn-outline-primary" type="submit" value="Login">
+        </div>
+    </form>
+
+    <div>
+        Don't have an account? <a href="{% url 'register' %}">Register
+            here.</a>
+    </div>
+</div>
+
+{% endblock %}

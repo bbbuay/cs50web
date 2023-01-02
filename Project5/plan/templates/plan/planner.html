@@ -1,0 +1,390 @@
+{% extends 'plan/layout.html' %}
+{% load static %}
+
+{% block tiltle %}Daily Plan{% endblock %}
+
+{% block body %}
+
+
+
+<div id="part-planner">
+
+
+    <div id="part1-planner">
+        <section id="day">
+            <h4>Date : {{date_header}}</h4>
+            <form action="{% url 'planner' %}" method="post">
+                {% csrf_token %}
+                <input type="date" name="date-search" id="date-search" min="2022-01-01" max="2025-12-31"
+                    value="{{date}}">
+                <input type="submit" value="Search" class="btn btn-md date-search-button">
+            </form>
+
+            <form action="{% url 'planner' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="date_from_f1" value="{{date}}">
+                <input type="submit" class="btn btn-sm" value="Previous Day" name="pre-day" id="pre-button">
+                <input type="submit" value="Today" class="btn btn-sm" name="today" id="today-button">
+                <input type="submit" class="btn btn-sm" value="Next Day" name="next-day" id="next-button">
+            </form>
+        </section>
+
+        <section id="schedules">
+            <h4>Schedules</h4>
+            <ul id="24hours" class="list-group">
+                {% for schedule in schedule_lists %}
+                <li class="list-group-item schedule-item" data-color="{{schedule.bg_hex_color}}"
+                    data-id="{{schedule.id}}" data-date="{{date}}" style="background-color: {{schedule.bg_hex_color}};">
+                    <span class="schedule-time">
+                        {{schedule.start_hours}}:{{schedule.start_mins}} - {{schedule.end_hours}}:{{schedule.end_mins}}
+                    </span>
+                    <span class="schedule-name">{{schedule.name}}</span>
+                </li>
+                {% empty %}
+                <li>Not any Schedules yet.</li>
+                {% endfor %}
+            </ul>
+
+            <div id="create-schedule-button-div">
+                <button type="button" class="btn btn-md new-schedule-button" data-toggle="modal"
+                    data-target="#schedule-popup-form">
+                    Create New Schedule
+                </button>
+            </div>
+
+            <div class="modal fade" id="schedule-popup-form" tabindex="-1" role="dialog"
+                aria-labelledby="addScheduleLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Create New Schedule</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <!-- Modal body -->
+                            <form method="post" action="{% url 'add_schedule' %}" id="schedule-form">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="schedule_name">Schedule Name :</label>
+                                    <input type="text" name="schedule_name" id="schedule_name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="date-selected">
+                                        Date of Schedule : <input type="date" name="date-selected" id="date-selected"
+                                            value="{{date}}">
+                                    </label>
+                                </div>
+
+                                <div class="form-group start-time">
+                                    Starts :
+                                    <select class="form-control" name="start-hours" id="start-hours" required>
+                                        <option value="00">00</option>
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                    </select>
+                                    : <select class="form-control" name="start-mins" id="start-mins" required>
+                                        <option value="00">00</option>
+                                        <option value="05">05</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                        <option value="25">25</option>
+                                        <option value="30">30</option>
+                                        <option value="35">35</option>
+                                        <option value="40">40</option>
+                                        <option value="45">45</option>
+                                        <option value="50">50</option>
+                                        <option value="55">55</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group end-time">
+                                    End :
+                                    <select class="form-control" name="end-hours" id="end-hours" required>
+                                        <option value="00">00</option>
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                    </select>
+                                    : <select class="form-control" name="end-mins" id="end-mins" required>
+                                        <option value="00">00</option>
+                                        <option value="05">05</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                        <option value="25">25</option>
+                                        <option value="30">30</option>
+                                        <option value="35">35</option>
+                                        <option value="40">40</option>
+                                        <option value="45">45</option>
+                                        <option value="50">50</option>
+                                        <option value="55">55</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group color-bg-select">
+                                    Background Color:
+                                    <label for="red" class="color-bg" style="background-color: #F7A4A4;">
+                                        <input type="radio" id="red" name="color" value="#F7A4A4" checked>
+                                        Red
+                                    </label>
+                                    <label for="orange" class="color-bg" style="background-color: #FEBE8C;">
+                                        <input type="radio" id="orange" name="color" value="#FEBE8C">
+                                        Orange
+                                    </label>
+                                    <label for="yellow" class="color-bg" style="background-color: #FDFDBD;">
+                                        <input type="radio" id="yellow" name="color" value="#FDFDBD">
+                                        Yellow
+                                    </label>
+                                    <label for="green" class="color-bg" style="background-color: #B6E2A1;">
+                                        <input type="radio" id="green" name="color" value="#B6E2A1">
+                                        Green
+                                    </label>
+                                    <label for="light-blue" class="color-bg" style="background-color: #DEFCF9;">
+                                        <input type="radio" id="light-blue" name="color" value="#DEFCF9">
+                                        Light Bule
+                                    </label>
+                                    <label for="dark-blue" class="color-bg" style="background-color: #CADEFC;">
+                                        <input type="radio" id="dark-blue" name="color" value="#CADEFC">
+                                        Dark Blue
+                                    </label>
+                                    <label for="dark-purple" class="color-bg" style="background-color: #C3BEF0;">
+                                        <input type="radio" id="dark-purple" name="color" value="#C3BEF0">
+                                        Dark Purple
+                                    </label>
+                                </div>
+                                <div class="form-group">
+
+                                    <input type="submit" class="btn btn-md add-schedule-button btn-outline-danger"
+                                        value="Add New Schedule">
+
+                                    <button type="button"
+                                        class="btn btn-primary btn-md update-schedule-button btn-outline-danger">Save
+                                        Changes</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+
+    <div id="part2-planner">
+        <section id="priorities">
+            <h4>Top Priorities</h4>
+            <ul class="list-group">
+                {% for task in top_priorities %}
+                <li class="list-group-item todo-item">
+                    <label for="{{task.name}}">{{task.name}}</label>
+                    {% if task.is_done %}
+                    <input type="checkbox" id="{{task.name}}" name="todo-task" class="todo-task" value="{{task.id}}"
+                        checked>
+                    {% else %}
+                    <input type="checkbox" id="{{task.name}}" name="todo-task" class="todo-task" value="{{task.id}}">
+                    {% endif %}
+
+
+                </li>
+                {% empty %}
+                <li>No Top Priorities Task Yet.</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section id="todo">
+            <h4>ToDo lists</h4>
+            <ul class="list-group">
+                {% for todo in todo_lists %}
+                <li class="list-group-item todo-item">
+                    <label for="{{todo.name}}">{{todo.name}}</label>
+                    {% if todo.is_done %}
+                    <input type="checkbox" id="{{todo.name}}" name="todo-task" class="todo-task" value="{{todo.id}}"
+                        checked>
+                    {% else %}
+                    <input type="checkbox" id="{{todo.name}}" name="todo-task" class="todo-task" value="{{todo.id}}">
+                    {% endif %}
+
+
+                </li>
+                {% empty %}
+                <li>No Todo List Yet.</li>
+                {% endfor %}
+            </ul>
+
+            <!-- Button trigger modal -->
+            <div id="new-todo-button-div">
+                <button class="btn btn-md btn-outline-success" data-toggle="modal" data-target="#add-todo"
+                    id="new-todo-button">Add Todo
+                    Task</button>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="add-todo" tabindex="-1" role="dialog" aria-labelledby="addTodoLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addTodoLabel">Add Todo Task</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form action="{%url 'add_todo'%}" method="post" id="todo-form">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="todo-task">Todo Task:</label>
+                                    <input type="text" name="todo-task" id="todo-task" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="todo-date">
+                                        Date of Task : <input type="date" name="todo-date" id="todo-date"
+                                            value="{{date}}">
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="top-priorities">
+                                        <input type="checkbox" name="is-top-priorities" id="top-priorities"
+                                            value="True">
+                                        Top Priorities
+                                    </label>
+                                </div>
+
+                                <div class="form-group">
+
+                                    <input type="submit" value="Add Task"
+                                        class="btn btn-md add-todo-button btn-outline-danger">
+
+                                    <button type="button"
+                                        class="btn btn-primary btn-md update-todo-button btn-outline-danger">Save
+                                        Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section id=" note">
+
+            <!-- Note Card -->
+            <div class="card" id="note-card">
+                <div class="card-body">
+                    <h4 class="card-title">Notes</h4>
+                    {% if note %}
+                    <p class="card-text">{{note.content}}</p>
+                    {% else %}
+                    <p class="card-text">Write a note ...</p>
+                    {% endif %}
+                </div>
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-sm" data-toggle="modal" id="write-note-button"
+                    data-target="#notesModal" value="{{note.id}}">
+                    Write A Note
+                </button>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="notesModal" tabindex="-1" role="dialog" aria-labelledby="notesModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="notesModalLabel">Write A Note </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{% url 'add_note' %}" method="post" id="note-form">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="note-date">
+                                        Date of Note : <input type="date" name="note-date" id="note-date"
+                                            value="{{date}}">
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="note_content">Content :</label>
+                                    <textarea name="note_content" id="note_content" cols="30" rows="10"
+                                        placeholder="Write a note..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    {% if note %}
+                                    <button type="button" class="btn btn-md btn-outline-danger" id="edit-note-button"
+                                        value="{{note.id}}">Save Changes</button>
+                                    {% else %}
+                                    <input type="submit" value="Save" class="btn btn-md btn-outline-danger">
+                                    {% endif %}
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'plan/schedule.js' %}"></script>
+{% endblock %}

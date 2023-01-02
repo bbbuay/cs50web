@@ -1,0 +1,728 @@
+body {
+    background-color: #EAFDFC;
+}
+
+nav {
+    background-color: #82AAE3;
+    font-size: large;
+    font-weight: 500;
+}
+
+.navbar,
+.nav-link {
+    color: #EAFDFC;
+}
+
+#logo {
+    border-radius: 5px;
+}
+
+
+h4 {
+    text-align: center;
+}
+
+#part-overview,
+#part-planner,
+#part-diary,
+#part-alldiary {
+    display: flex;
+    width: 100%;
+}
+
+
+#part1-overview {
+    width: 25%;
+    margin: auto;
+    margin-top: 0px;
+    padding: 20px;
+}
+
+#part2-overview {
+    width: 75%;
+}
+
+#part1-planner,
+#part2-planner {
+    width: 50%;
+    padding: 20px 40px;
+}
+
+#part1-planner {
+    padding-right: 10px;
+}
+
+#part2-planner {
+    padding-left: 10px;
+}
+
+
+/* index */
+.alert {
+    text-align: center;
+}
+
+.card {
+    margin: auto;
+    background-color: #FFFFD0;
+    letter-spacing: 0.5px;
+}
+
+.card-header {
+    background-color: #FFF6BD;
+    font-weight: 600;
+}
+
+.card-body {
+    padding: 10px 20px;
+}
+
+.card-button-container {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 10px;
+}
+
+.card-button-container button,
+.card-button-container input {
+    width: 100px;
+    border-color: #FFE15D;
+}
+
+#create_event_button_div {
+    text-align: center;
+}
+
+#create_event_button {
+    background-color: #FFE15D;
+    padding: 5px 20px;
+}
+
+#create_event_button:hover {
+    background-color: #FFF6BD;
+}
+
+#weekly-plan {
+    padding: 20px;
+}
+
+#day-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 10px 0px;
+    text-align: center;
+}
+
+#day-container thead {
+    background-color: #82AAE3;
+}
+
+/* planner.html */
+
+/* day part */
+
+#day {
+    background-color: #BFEAF5;
+    padding: 10px 30px 15px;
+    border-radius: 20px;
+    width: 90%;
+    margin: auto;
+    font-size: 18px;
+}
+
+#day form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+#pre-button,
+#next-button,
+#today-button,
+.date-search-button,
+#date-search {
+    padding: 7px 20px;
+    margin: 0px 5px 10px;
+}
+
+#pre-button,
+#next-button,
+#today-button:hover,
+#write-note-button:hover {
+    background-color: #FFF6BF;
+}
+
+#today-button,
+#pre-button:hover,
+#next-button:hover,
+#write-note-button {
+    background-color: #FFEBAD;
+    padding: 7px 20px;
+}
+
+
+/* schedules part */
+
+#schedules {
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+    padding: 10px 30px;
+    border-radius: 20px;
+    background-color: #BFEAF5;
+}
+
+#schedules li {
+    width: 95%;
+    margin: auto;
+    margin-bottom: 10px;
+    border-radius: 30px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 10px 30px;
+}
+
+#schedules .schedule-name {
+    padding-left: 30px;
+    padding-right: 10px;
+}
+
+#create-schedule-button-div {
+    text-align: center;
+}
+
+.new-schedule-button,
+.date-search-button {
+    background-color: #82AAE3;
+    color: white;
+}
+
+.new-schedule-button:hover,
+.date-search-button:hover {
+    background-color: #EAFDFC;
+    color: black;
+}
+
+/* prorities, todo part */
+
+#priorities,
+#todo {
+    background-color: #A0E4CB;
+    width: 90%;
+    margin: auto;
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+#priorities li,
+#todo li {
+    padding: 10px 20px 3px;
+    border-radius: 20px;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 10px;
+    letter-spacing: 0.7px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+#priorities label,
+#todo label {
+    margin-bottom: 0;
+}
+
+.todo-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
+#priorities input[type="checkbox"]:hover,
+#todo input[type="checkbox"]:hover {
+    cursor: pointer;
+}
+
+#new-todo-button-div {
+    text-align: center;
+}
+
+/* Note Part */
+
+#note-card {
+    width: 90%;
+    height: 12rem;
+    background-color: #FCFDF2;
+}
+
+#note-card {
+    border: none;
+    font-size: 18px;
+    padding: 5px 10px;
+}
+
+#note-card .card-text {
+    color: black;
+}
+
+#write-note-button {
+    margin: auto;
+    width: 150px;
+}
+
+/* diary.html */
+
+#part-diary {
+    margin: 0px 10%;
+}
+
+#part1-diary {
+    width: 30%;
+    padding: 20px;
+}
+
+
+#part2-diary {
+    width: 50%;
+    padding: 20px;
+}
+
+/* part1-diary : diary-last-part */
+
+#diary-last-part h4,
+#diary-last-part #diary-today {
+    letter-spacing: 0.8px;
+}
+
+#diary-last-part #diary-today {
+    font-size: 16px;
+}
+
+#diary-today {
+    text-align: center;
+}
+
+.each-last-diary {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border-width: 2px;
+}
+
+#see-more-diaries-button {
+    border-width: 2px;
+    font-weight: 500;
+    width: 100%;
+}
+
+#see-more-diaries-button a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* part2-diary : create-diary-part */
+
+#diary-create-part {
+    background-color: #CFF5E7;
+    padding: 10px 20px;
+    border: 3px solid #A0E4CB;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+#create-diary-form {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+#create-diary-form p {
+    width: 90%;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+#create-diary-form input[type="text"],
+#create-diary-form #id_content {
+    width: 100%;
+}
+
+#create-diary-button {
+    width: 100%;
+    border-width: 2px;
+    border-color: #A0E4CB;
+}
+
+/* all_diaries.html */
+
+/* part1 */
+
+#part-alldiary {
+    padding: 20px 5%;
+}
+
+#part1-alldiary {
+    width: 30%;
+}
+
+#part2-alldiary {
+    width: 70%;
+    padding: 10px 20px;
+}
+
+#diary-search-part {
+    background-color: #FFE8E8;
+    padding: 10px 20px;
+    border: 3px solid #FFB4B4;
+    border-radius: 20px;
+    margin-right: 20px;
+    font-size: 18px;
+}
+
+.diary-search-button {
+    width: 100%;
+    background-color: #FFB4B4;
+    color: white;
+}
+
+.diary-search-button:hover {
+    background-color: #FFDCDC;
+    color: black;
+    border-color: #FFB4B4;
+}
+
+#diary-search-button-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#all-diary-button,
+#back-to-create-button {
+    width: 48%;
+    background-color: #FFDCDC;
+    border-color: #FF9292;
+    border-width: 1.5px;
+    color: #FF9292;
+}
+
+#all-diary-button:hover,
+#back-to-create-button:hover {
+    background-color: #FF9292;
+    color: white;
+}
+
+#all-diary-button>a,
+#back-to-create-button>a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* part 2 */
+.diary-card {
+    border-width: 2px;
+    font-size: 18px;
+    letter-spacing: 0.8px;
+    padding: 5px;
+}
+
+.delete-diary-button {
+    border-width: 1.5px;
+    font-weight: 500;
+    width: 100%;
+    background-color: #FFF6BD;
+    margin-top: 5px;
+}
+
+.delete-diary-button:hover {
+    background-color: #FFE15D;
+}
+
+.delete-diary-button-div {
+    width: 100%;
+}
+
+.card-img {
+    border: 1px solid black;
+}
+
+#nav-paginator {
+    display: flex;
+    justify-content: center;
+    background-color: #EAFDFC;
+}
+
+/* For Modal */
+
+
+
+.modal-header {
+    background-color: #FFB4B4;
+}
+
+.modal-body {
+    background-color: #FFE8E8;
+}
+
+.modal-body input[type="text"] {
+    width: 75%;
+}
+
+.modal-body input[type="submit"],
+.modal-body button,
+.modal-body textarea {
+    width: 100%;
+}
+
+.modal-body .color-bg {
+    padding: 0px 10px;
+    border-radius: 20px;
+}
+
+/* login.html */
+/* register.html */
+
+#login-part,
+#register-part {
+    padding: 10px 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#login-part form,
+#register-part form {
+    width: 80%;
+}
+
+#login-button-div,
+#register-form-group {
+    text-align: center;
+}
+
+.login-button,
+.register-button {
+    padding: 5px 20px;
+}
+
+
+/* Use media queries to apply different styles for different screen sizes */
+/* break-point : Large (992px), Medium (768px), Small 576px */
+
+@media (max-width: 992px) {
+
+    .navbar-toggler {
+        background-color: #EAFDFC;
+    }
+
+    .navbar-collapse .nav-item {
+        background-color: #BFEAF5;
+        border: 2px solid #82AAE3;
+        text-align: center;
+        letter-spacing: 1px;
+        border-radius: 5px;
+    }
+
+    .navbar-collapse .nav-item:hover {
+        background-color: #EAFDFC;
+    }
+
+    /* index.html */
+    #part-overview {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #part1-overview {
+        width: 100%;
+    }
+
+    #part2-overview {
+        width: 100%;
+    }
+
+    .alert {
+        width: 80%;
+        text-align: center;
+        margin: auto;
+        margin-bottom: 10px;
+    }
+
+    #event-card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .event-card {
+        width: 280px;
+        margin: 10px;
+    }
+
+    #create_event_button {
+        padding: 5px 20px;
+    }
+
+    h4 {
+        line-height: 1.5;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    /* planner.html */
+
+    #part1-planner {
+        width: 55%;
+    }
+
+    #part2-planner {
+        width: 45%;
+    }
+
+
+    #schedules li {
+        width: 100%;
+        padding: 10px 20px;
+        font-weight: 400;
+    }
+
+    /* diary.html */
+
+    #part-diary {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    #part1-diary,
+    #part2-diary {
+        width: 80%;
+    }
+
+    /* all_diaries.html */
+
+    #diary-search-button-div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #all-diary-button,
+    #back-to-create-button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    /* index.html */
+
+    #day-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #day-container .table {
+        width: 300px;
+    }
+
+    /* planner.html */
+
+    #part-planner {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+    }
+
+    #part1-planner,
+    #part2-planner {
+        width: 100%;
+        padding: 0px;
+        padding-top: 20px;
+        margin: auto;
+    }
+
+    /* diary.html */
+
+    #part-diary {
+        margin: 0px 5%;
+    }
+
+    #part1-diary {
+        width: 90%;
+    }
+
+
+    #part2-diary {
+        width: 90%;
+    }
+
+    /* all_diaries.html */
+
+    #part-alldiary {
+        flex-direction: column;
+        padding: 20px 10%;
+    }
+
+    #part1-alldiary {
+        width: 100%;
+    }
+
+    #part2-alldiary {
+        width: 100%;
+        padding: 10px 0px;
+        margin-top: 20px;
+    }
+
+    #diary-search-button-div {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #all-diary-button,
+    #back-to-create-button {
+        width: 45%;
+    }
+
+
+}
+
+@media (max-width: 576px) {
+
+    /* index.html */
+
+    .alert {
+        width: 80%;
+        text-align: center;
+        margin: auto;
+        margin-bottom: 10px;
+    }
+
+    .event-card {
+        width: 80%;
+        margin: 10px;
+    }
+
+    #day-container .table {
+        width: 80%;
+    }
+
+    .schedule-data-group div {
+        display: inline-block;
+        width: 40%;
+    }
+
+    /* planner.html -> nothing change from @media (max-width: 768px) */
+
+    /* diary.html -> nothing change  from @media (max-width: 768px) */
+
+    /* all_diaries.html -> nothing change from @media (max-width: 768px) */
+}

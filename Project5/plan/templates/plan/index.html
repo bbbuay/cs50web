@@ -1,0 +1,180 @@
+{% extends 'plan/layout.html' %}
+{% load static %}
+
+
+{% block body %}
+
+<div id="part-overview">
+
+    <div id="part1-overview">
+
+        <section id="today-date">
+            <div class="alert alert-info" role="alert">
+                "Today is <strong>{{date_header}}</strong>."
+            </div>
+        </section>
+
+
+        <!-- This is the place to show upcoming events -->
+        <section id="upcoming-events-part">
+
+            <h4>Upcoming Events</h4>
+
+            {% if error_message %}
+            <div class="alert alert-danger" role="alert">
+                {{error_message|safe}}
+            </div>
+            {% endif %}
+
+            <div id="event-card-container">
+                {% for event in events %}
+                <div class="card mb-3 event-card">
+                    <div class="card-header">{{event.name}}</div>
+                    <div class="card-body text-dark">
+                        <p class="card-text">Date : {{event.date}}</p>
+                        <p class="card-text">Time : {{event.start_time}}-{{event.end_time}}</p>
+                    </div>
+
+                    <div class="card-button-container">
+                        <button class="btn btn-sm edit-event-button btn-outline-warning" name="edit-event-button"
+                            value="{{event.id}}">Edit</button>
+                        <form action="{% url 'remove_event' event.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" value="Delete"
+                                class="btn btn-sm btn-outline-warning delete-event-button">
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Bootstrap Card -->
+
+
+
+            <!-- Modal Part -->
+            <!-- Button trigger modal -->
+            <div id="create_event_button_div">
+                <button type="button" class="btn btn-md" data-toggle="modal" data-target="#eventModal"
+                    id="create_event_button">
+                    Create New Event
+                </button>
+            </div>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="eventModalLabel">Event</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {% if error_message %}
+                            <div class="alert alert-danger">{{ error_message|safe }}</div>
+                            {% endif %}
+
+                            <form method="post" action="{% url 'index' %}" id="event_form">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="event_name">Event Name :</label>
+                                    <input type="text" name="event-name" id="event_name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="event_date">Event Date :</label>
+                                    <input type="date" name="event-date" id="event_date" value="{{today}}" required>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="start_time"> Start Time :</label>
+                                    <input type="time" name="start-time" id="start_time" required>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="end_time">End Time :</label>
+                                    <input type="time" name="end-time" id="end_time" required>
+
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Submit" class="btn btn-md btn-outline-danger"
+                                        id="event_submit_button" required>
+                                </div>
+                                <button type="button" class="btn btn-md btn-outline-danger" id="save_event">Save
+                                    Change</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
+    </div>
+
+    <div id="part2-overview">
+
+        <section id="weekly-plan">
+            <h4>Weekly Plan (in next 7 days)</h4>
+
+            <div id="day-container">
+                {% for day, schedules in weekly_schedules_dict.items %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">{{ day }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for schedule in schedules %}
+                        <tr>
+                            <td style='background-color: {{schedule.bg_hex_color}};'>
+                                <div class="schedule-data-group">
+                                    <div>
+                                        {{schedule.start_hours}}:{{schedule.start_mins}}-{{schedule.end_hours}}:{{schedule.end_mins}}
+                                    </div>
+                                    <div>{{schedule.name}}</div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% endfor %}
+
+                {% for day in rest_day %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">{{ day }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="background-color: #BFEAF5;">
+                                <div class="schedule-data-group">
+                                    No Schedule was planned for today.
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% endfor %}
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'plan/overview.js' %}"></script>
+{% endblock %}

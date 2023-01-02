@@ -1,0 +1,46 @@
+{% extends 'plan/layout.html' %}
+
+{% block tiltle %}Diary{% endblock %}
+
+{% block body %}
+
+<div id="part-diary">
+
+    <div id="part1-diary">
+
+        <section id="diary-last-part">
+            <h4>Summary of last {{last_diaries_number}} diaries</h4>
+            <p id="diary-today"> Today : {{date_header}} </p>
+            {% for diary in last_diaries %}
+            <div class="card each-last-diary">
+                <div class="card-body">
+                    <h5 class="card-title"><span>{{diary.title}}</span><span>{{diary.mood|safe}}</span></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{diary.timestamp}}</h6>
+                    <p class="card-text">{{diary.content}}</p>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div>
+                <button class="btn btn-md btn-outline-warning" id="see-more-diaries-button">
+                    <a href="{% url 'all_diaries'%}">See More Diaries. . .</a>
+                </button>
+            </div>
+
+        </section>
+    </div>
+
+
+    <div id="part2-diary">
+        <section id="diary-create-part">
+            <h4>Create New Diary</h4>
+            <form method="post" enctype="multipart/form-data" id="create-diary-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-md btn-outline-success" id="create-diary-button">Submit</button>
+            </form>
+        </section>
+    </div>
+
+</div>
+{% endblock %}

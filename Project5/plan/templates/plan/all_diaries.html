@@ -1,0 +1,158 @@
+{% extends 'plan/layout.html' %}
+{% load static %}
+
+{% block tiltle %}Diaries{% endblock %}
+
+{% block body %}
+
+<div id="part-alldiary">
+
+    <div id="part1-alldiary">
+        <section id="diary-search-part">
+            <h4>Search</h4>
+
+            <div id="search-by-part">
+                <div class="form-group">
+                    <label for="search-select">Search by:</label>
+                    <select id="search-select">
+                        <option value="date">date</option>
+                        <option value="mood">mood</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div id="date-search-view">
+                <form action="{% url 'all_diaries' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="date-search-diary">Select Date :
+                            <input type="date" id="date-search-diary" name="date-search" required>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Search" class="btn btn-md diary-search-button">
+                    </div>
+                </form>
+            </div>
+
+            <div id="mood-search-view">
+                <form action="{% url 'all_diaries' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="mood-select">
+                            Select Mood:
+                            <select id="mood-select" name="mood-select">
+                                <option value="128512">&#128512; (Happy)</option>
+                                <option value="128532">&#128532; (Sad)</option>
+                                <option value="128548">&#128548; (Angry)</option>
+                                <option value="128522">&#128522; (Relaxed)</option>
+                                <option value="128560">&#128560; (Anxious)</option>
+                                <option value="129321">&#129321; (Excited)</option>
+                                <option value="128528">&#128528; (Bored)</option>
+                                <option value="128555">&#128555; (Tired)</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Search" class="btn btn-md diary-search-button">
+                    </div>
+                </form>
+            </div>
+
+            <div id="diary-search-button-div">
+                <button class="btn btn-sm" id="all-diary-button"><a href="{% url 'all_diaries' %}">All
+                        Diaries</a></button>
+                <button class="btn btn-sm" id="back-to-create-button"><a href="{% url 'diary'%}">Create
+                        Diary</a></button>
+            </div>
+
+        </section>
+    </div>
+
+    <div id="part2-alldiary">
+        <h4>{{diary_header}}</h4>
+        <section id="diary-all-part">
+            {% for diary in page_obj %}
+            <div class="card mb-3 diary-card">
+                <div class="row no-gutters">
+                    {% if diary.image %}
+                    <div class="col-md-8">
+                        {% else %}
+                        <div class="col-md-12">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{diary.title}}</h5>
+                                <p class="card-text">{{diary.content}}</p>
+                                <p class="card-text"><small class="text-muted">on {{diary.timestamp}}</small>
+                                    {{diary.mood|safe}}</p>
+                            </div>
+                        </div>
+                        {% if diary.image %}
+                        <div class="col-md-4">
+                            <img src="{{ diary.image.url }}" class="card-img" alt="diary image">
+                        </div>
+                        {% endif %}
+                        <div class="delete-diary-button-div">
+                            <form action="{% url 'delete_diary' diary.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm delete-diary-button">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <h6 style="text-align: center;">No Diary was Found</h6>
+                {% endfor %}
+
+                <!-- Page navigation -->
+                <nav aria-label="Page navigation" id="nav-paginator">
+                    <ul class="pagination">
+
+                        <!-- Previous Page -->
+                        {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">Previous</span>
+                        </li>
+                        {% endif %}
+
+                        <!-- All Pages -->
+                        {% for page_number in page_range %}
+                        {% if page_obj.number == page_number %}
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="?page={{ page_number }}">{{page_number}} <span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_number }}">{{page_number}}</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+
+                        <!-- Next Page -->
+                        {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">Next</span>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+        </section>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'plan/diaries.js' %}"></script>
+{% endblock %}
