@@ -1,0 +1,44 @@
+{% extends "auctions/layout.html"%}
+
+{% block title %}
+Watchlist
+{% endblock %}
+
+{% block body %}
+<h2 class="page-header">Watchlist</h2>
+
+<section class="container">
+    {% for auction in watch_auctions %}
+    <div class="auction-container">
+        {% if auction.is_active == True %}
+        <h3 class="auction-name">
+            <a href="{% url 'auction' auction.id %}">{{auction.name}}</a>
+        </h3>
+        <div class="auction-details">
+            {% if auction.img %}
+            <img src="{{auction.img.url}}" alt="image">
+            {% endif %}
+
+            <div class="auction-detail">
+                <h5>Details</h5>
+                <p>{{auction.description}}</p>
+                <p>Starting Bid : <strong>${{auction.start_bid}}</strong></p>
+                {% if auction.current_bid %}
+                <p>Current Price : <strong>${{auction.current_bid}}</strong></p>
+                {% else %}
+                <p>Current Price : <strong>${{auction.start_bid}}</strong></p>
+                {% endif %}
+                <p>Owned By <strong>{{auction.user}}</strong></p>
+                <p>Created {{auction.date}} {{auction.time}}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% empty %}
+    <p> No WatchList.</p>
+
+    {% endfor %}
+</section>
+
+{% endblock %}

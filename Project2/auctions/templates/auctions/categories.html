@@ -1,0 +1,32 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+Categories
+{% endblock %}
+
+{% block body %}
+<h2 class="page-header">Category</h2>
+
+<section class="container">
+    {% for category in categories%}
+    <div class="category-container">
+        {% if category.img %}
+        <img src="{{category.img.url}}" alt="image">
+        {% endif %}
+        <h4>
+            <a href="{% url 'category' category.id %}">{{category.name}}</a>
+        </h4>
+    </div>
+    {% endfor %}
+</section>
+
+<div class="create-category-container">
+    <h3>Create New Category</h3>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>Category Name : {{form.name}}</div>
+        <div>Category Image (optional) : {{form.img}}</div>
+        <input type="submit" value="Add Category" id="create-submit">
+    </form>
+</div>
+{% endblock %}

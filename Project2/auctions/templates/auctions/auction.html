@@ -1,0 +1,98 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+{{auction.name}}
+{% endblock %}
+
+{% block body %}
+<section class="each-auction">
+    <h2 class="page-header">Auction : {{auction.name}}</h2>
+    <!-- For the user to End this Auction -->
+
+    {% if auction.is_active == True %}
+    <div class="button-group">
+        {% if user.id == auction.user.id and auction.is_active == True %}
+        <form action="{% url 'close' auction.id%}" method="post">
+            {% csrf_token %}
+            <input name="end" type="submit" value="Close This Auction">
+        </form>
+        {% endif %}
+
+        <!-- if in watchlist, display : "add to watchlist" -->
+        {% if auction in user_watchlists %}
+        <form action="{% url 'remove' auction.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Remove From Watchlist">
+        </form>
+    </div>
+    <!-- if not in watchlist, display : "remove to watchlist" -->
+    {% else %}
+    <form action="{% url 'add' auction.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Add to Watchlist">
+    </form>
+    {% endif %}
+
+    {% if auction.img %}
+    <img src="{{auction.img.url}}" alt="">
+    {% endif %}
+
+    <div class="sub-each-auction">
+        <h5>Details</h5>
+        <p>{{auction.description}}</p>
+        <p>Starting Bid : <strong>${{auction.start_bid}}</strong></p>
+        {% if auction.current_bid %}
+        <p>Current Price : <strong>$ {{auction.current_bid}}</strong></p>
+        {% else %}
+        <p>Current Price : <strong>$ {{auction.start_bid}}</strong></p>
+        {% endif %}
+        <p>Owned By <strong>{{auction.user}}</strong></p>
+        <p>Created {{auction.date}} {{auction.time}}</p>
+    </div>
+
+    <div class="sub-each-auction">
+        <h5>Place Your Bid [$]</h5>
+        <form action="{% url 'auction' auction.id %}" method="post">
+            {% csrf_token %}
+            <input type="number" name="bid" placeholder="Bid" id="place-bid">
+            <input type="submit" value="Place Bid" id="place-bid-btn">
+        </form>
+
+        {% if message %}
+        <p style="color: red;">{{message}}</p>
+        {% endif %}
+    </div>
+
+    <div class="sub-each-auction">
+        <h5> Bidder </h5>
+        <ul id="bidder">
+            {% for bid in bids %}
+            <li>{{bid.user}} offer at <strong>${{bid.bid}}</strong></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="sub-each-auction">
+        <h5>Comment</h5>
+        <div>
+            {% for comment in comments %}
+            <p><strong>{{comment.user}}</strong> : {{comment.comment}}</p>
+            {% endfor %}
+        </div>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <textarea name="comment" id="comment" cols="30" rows="5" placeholder="Write a comment"></textarea>
+            <input type="submit" value="Comment" id="comment-btn">
+        </form>
+    </div>
+
+    {% else %}
+    <p style="font-size: 24px;">This auction is CLOSED !!! The higest price equals to
+        <strong>${{lastest_bid.bid}}</strong> by
+        {{lastest_bid.user}}.
+    </p>
+    {% endif %}
+</section>
+
+{% endblock %}

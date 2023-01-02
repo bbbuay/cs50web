@@ -1,0 +1,27 @@
+{% extends "auctions/layout.html"%}
+
+{% block title %}
+Create Auction
+{% endblock %}
+
+{% block body %}
+<h2 class="page-header"> Create Auction</h2>
+<form action="{% url 'create'%}" method="post" enctype="multipart/form-data" class="auction-form">
+    {% csrf_token %}
+    <div>Auction Name : {{form.name}}</div>
+    <div>Category :
+        <select name="auc-category" id="">
+            {% for category in categories %}
+            <option value="{{category.id}}">{{category.name}}</option>
+            {% endfor %}
+            <option value=""></option>
+        </select>
+    </div>
+    <div>Description : <br>{{form.description}}</div>
+    <div>Image : {{form.img}}</div>
+    <div>Start Bid [$] : {{form.startbid}}</div>
+    <input type="hidden" name="user_id" value="{{user.id}}">
+    <div>Created by : <strong>{{user.username}}</strong></div>
+    <input type="submit" id="auction-submit">
+</form>
+{% endblock %}
