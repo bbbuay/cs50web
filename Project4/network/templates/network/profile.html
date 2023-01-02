@@ -1,0 +1,128 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block title %}{{profile_user.username}}{% endblock %}
+
+{% block body %}
+<header class="profile-header">
+    <section class="profile-name">
+        <h2>{{profile_user.username}}</h2>
+    </section>
+
+    <section class="profile-details">
+        <div class="profile-element">
+            <div class="header-number">{{post_number}}</div> posts
+        </div>
+        <div class="profile-element">
+            <a href="{% url 'follow' profile_user.id %}">
+                <div class="header-number">{{follower_number}}</div>
+                <div>followers</div>
+            </a>
+        </div>
+        <div class="profile-element">
+            <a href="{% url 'follow' profile_user.id %}">
+                <div class="header-number">{{following_number}}</div>
+                <div>following</div>
+            </a>
+        </div>
+    </section>
+
+</header>
+
+<div>
+    <form action="{% url 'profile' profile_user.id %}" method="post">
+        {% csrf_token %}
+
+        {% if profile_user != user %}
+
+        {% if is_followed_by_user %}
+        <input name="unfollow" type="submit" value="unfollow" class="btn btn-sm btn-secondary unfollow-button">
+        {% elif not is_followed_by_user %}
+        <input name="follow" type="submit" value="follow" class="btn btn-sm btn-primary follow-button">
+        {% endif %}
+
+        {% endif %}
+    </form>
+</div>
+
+
+<div class="user_posts">
+    <h4> Your Posts </h4>
+
+    {% for post in page_obj %}
+    <div class="post">
+        <section class="content-part">
+            <div class="post-element">
+                <a href="{% url 'profile' profile_user.id %}"><strong>{{profile_user.username}}</strong></a>
+            </div>
+            <div class="post-element post-content-view">
+                {{post.content}}
+            </div>
+            <div class="post-element edit-view">
+                <textarea name="" id="" cols="100" rows="5" class="new-content">{{post.content}}</textarea>
+            </div>
+            <div class="post-element">
+                {{post.timestamp}}
+            </div>
+        </section>
+
+        <section class="post-element like-part">
+            <img src="https://www.freeiconspng.com/thumbs/heart-png/heart-png-15.png" alt="heart" height="15px">
+            <span class="like-numbers">{{post.like_numbers}}</span>
+
+            <div>
+                <input type="hidden" name="" class="hidden-post-id" value="{{post.id}}">
+                <!-- if user like this post, display unlike button -->
+                {% if user in post.like_users.all %}
+                <button class="btn btn-sm btn-outline-secondary unlike-button">unlike</button>
+                {% elif user not in post.like_users.all %}
+                <!-- elif user does not like this post, display like button -->
+                <button class="btn btn-sm btn-outline-secondary like-button">like</button>
+                {% endif %}
+            </div>
+
+
+
+            <form action="" method="post" class="edit-form">
+                {% csrf_token %}
+                <input type="submit" value="Edit Post" class="btn btn-sm edit-button">
+            </form>
+
+            <input type="hidden" name="post_id" value="{{post.id}}" class="hidden-post-id">
+            <input type="submit" value="Save" class="btn btn-sm btn-primary save-button">
+
+        </section>
+
+
+
+    </div>
+    {% empty %}
+    No Posts.
+    {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block script %}
+<script src="{% static 'network/post.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block title %}Following{% endblock %}
+
+{% block body %}
+
+<h2> Posts </h2>
+
+{% for post in page_obj %}
+
+<div class="post">
+    <section class="content-part">
+        <div class="post-element">
+            <a href="{% url 'profile' post.user.id %}"><strong>{{post.user.username}}</strong></a>
+        </div>
+        <div class="post-element">
+            {{post.content}}
+        </div>
+        <div class="post-element">
+            {{post.timestamp}}
+        </div>
+    </section>
+
+    <section class="post-element like-part">
+        <img src="https://www.freeiconspng.com/thumbs/heart-png/heart-png-15.png" alt="heart" height="15px">
+        <span class="like-numbers">{{post.like_numbers}}</span>
+
+        <div>
+            <input type="hidden" name="" class="hidden-post-id" value="{{post.id}}">
+            <!-- if user like this post, display unlike button -->
+            {% if user in post.like_users.all %}
+            <button class="btn btn-sm btn-outline-secondary unlike-button">unlike</button>
+            {% elif user not in post.like_users.all %}
+            <!-- elif user does not like this post, display like button -->
+            <button class="btn btn-sm btn-outline-secondary like-button">like</button>
+            {% endif %}
+        </div>
+    </section>
+</div>
+
+{% empty %}
+No Post.
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'network/post.js' %}"></script>
+{% endblock %}

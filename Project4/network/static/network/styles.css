@@ -1,0 +1,277 @@
+body {
+    background-color: #A7C4BC;
+}
+
+.navbar {
+    background-color: #2F5D62;
+    padding: 10px 25px;
+    border-bottom: 2px solid #5E8B7E;
+}
+
+#navbar-brand {
+    font-size: 25px;
+    font-weight: 600;
+    color: #DFEEEA;
+    text-shadow: 1px 1px 2px #A7C4BC;
+    letter-spacing: 1px;
+}
+
+.nav-item {
+    margin-left: 10px;
+}
+
+.nav-link {
+    background-color: #DFEEEA;
+    border-radius: 20px;
+    border: 2px solid #2F5D62;
+    padding: 5px 20px;
+    width: 100px;
+    text-align: center;
+    font-size: 16px;
+}
+
+h2 {
+    margin: 15px 0px 10px;
+    text-shadow: #DFEEEA 1px 0 10px;
+    text-align: center;
+    font-size: 28px;
+}
+
+h4 {
+    font-size: 24px;
+    text-align: center;
+}
+
+.post {
+    background-color: #DFEEEA;
+    margin: 0px 10% 20px 10%;
+    padding: 10px 30px 20px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+    letter-spacing: 0.07em;
+    line-height: 1.8em;
+}
+
+.post a {
+    font-size: 20px;
+    color: #2F5D62;
+    text-decoration: #2F5D62 solid underline;
+}
+
+
+.content-part {
+    width: 80%;
+}
+
+.like-part {
+    width: 15%;
+    padding: 10px;
+    text-align: center;
+}
+
+.like-part button {
+    margin-top: 6px;
+}
+
+.edit-button,
+.save-button {
+    display: inline-block;
+    margin: auto;
+    margin-top: 8px;
+}
+
+.edit-button,
+.new-post-button,
+.login-button,
+.register-button,
+.follow-button {
+    background-color: #5E8B7E;
+    color: white;
+}
+
+.edit-button:hover,
+.follow-button:hover {
+    background-color: #A7C4BC;
+    color: black;
+}
+
+.new-post-button {
+    width: 20%;
+    margin-left: 40%;
+}
+
+.new-post-button:hover,
+.login-button:hover,
+.register-button:hover {
+    background-color: #DFEEEA;
+}
+
+
+.pagination {
+    margin: 10px 0px 20px;
+    width: 100%;
+}
+
+.step-links {
+    margin: 0px 20px;
+    font-size: 18px;
+    display: flex;
+    width: 30%;
+    justify-content: space-between;
+    margin-left: 33%;
+}
+
+.step-links a {
+    text-decoration: none;
+    background-color: #DFEEEA;
+    padding: 5px 10px;
+    border-radius: 15px;
+    color: black;
+}
+
+
+.step-links a:hover {
+    background-color: #5E8B7E;
+    color: white;
+}
+
+.current {
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 5px 0px;
+}
+
+.profile-header {
+    width: 100%;
+    margin: auto;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: hsl(163, 19%, 46%, 0.7);
+
+}
+
+.profile-name {
+    margin: 10px 10px 0px;
+    padding: 0px 50px;
+    text-align: center;
+    border-radius: 20px;
+    letter-spacing: 3px;
+    text-shadow: #DFEEEA 1px 0 10px;
+}
+
+.profile-details {
+    display: flex;
+    justify-content: center;
+    width: 70%;
+}
+
+.profile-element {
+    width: 25%;
+    text-align: center;
+    background-color: #DFEEEA;
+    padding: 30px 20px;
+    margin: 10px 10px 0px;
+    border-radius: 20px;
+    color: #2F5D62;
+}
+
+.profile-element:first {
+    border-left-style: none;
+}
+
+.profile-element a {
+    text-align: center;
+    text-decoration: none;
+    color: #2F5D62;
+}
+
+.header-number {
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+hr {
+    color: #5E8B7E;
+}
+
+.new-form {
+    width: 70%;
+    margin: auto;
+}
+
+.new-form textarea {
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+.new-form textarea:focus {
+    outline: none;
+}
+
+#login-form,
+#register-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#login-form>div,
+#login-form>input,
+#register-form>div,
+#register-forminput {
+    width: 70%;
+}
+
+.follow-part {
+    background-color: #DFEEEA;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 70%;
+    margin: 0px 15% 10px;
+    border-radius: 40px;
+    color: #2F5D62;
+    letter-spacing: 2px;
+}
+
+.follow-part section {
+    width: 33.33%;
+    padding: 10px;
+
+}
+
+.follow-part section:nth-child(2) {
+    border-left: 1px solid #A7C4BC;
+    border-right: 1px solid #A7C4BC;
+}
+
+.follow-part a {
+    text-decoration: none;
+    color: #2F5D62;
+}
+
+h2>a {
+    text-decoration: none;
+    color: #2F5D62;
+}
+
+h2>a:hover,
+.follow-part a:hover {
+    text-decoration: none;
+    color: #5E8B7E;
+}
+
+
+.follow-element {
+    padding: 10px 20px;
+    margin: 0px 10px;
+}
+
+.follow-element form {
+    display: flex;
+    justify-content: space-between;
+}

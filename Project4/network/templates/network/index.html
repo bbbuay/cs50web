@@ -1,0 +1,89 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block title %}All Post{% endblock %}
+
+{% block body %}
+<h2> All Post </h2>
+<div class="posts">
+
+    {% for post in page_obj %}
+    <div class="post">
+
+        <section class="content-part">
+            <div class="post-element">
+                <strong><a href="{% url 'profile' post.user.id %}">{{post.user.username}}</a></strong>
+            </div>
+            <div class="post-element post-content-view">
+                {{post.content}}
+            </div>
+            <div class="post-element edit-view">
+                <textarea name="" id="" cols="100" rows="5" class="new-content">{{post.content}}</textarea>
+            </div>
+            <div class="post-element">
+                {{post.timestamp}}
+            </div>
+        </section>
+
+        <!-- add section and class -->
+        <!-- change div -> span (num like) -->
+        <!-- add div to button part -->
+        <!-- dont do anthing : chang some part of js to make it work -->
+
+
+        <section class="post-element like-part">
+            <img src="https://www.freeiconspng.com/thumbs/heart-png/heart-png-15.png" alt="heart" height="15px">
+            <span class="like-numbers">{{post.like_numbers}}</span>
+
+            <div>
+                <input type="hidden" name="" class="hidden-post-id" value="{{post.id}}">
+                {% if user.is_authenticated %}
+                <!-- if user like this post, display unlike button -->
+                {% if user in post.like_users.all %}
+                <button class="btn btn-sm btn-outline-secondary unlike-button">unlike</button>
+                {% elif user not in post.like_users.all %}
+                <!-- elif user does not like this post, display like button -->
+                <button class="btn btn-sm btn-outline-secondary like-button">like</button>
+                {% endif %}
+                {% endif %}
+            </div>
+
+            <!-- if login user is a user who create this post -->
+            {% if user == post.user %}
+            <form action="" method="post" class="edit-form">
+                {% csrf_token %}
+                <input type="submit" value="Edit Post" class="btn btn-sm edit-button">
+            </form>
+            <input type="hidden" name="post_id" value="{{post.id}}" class="hidden-post-id">
+            <input type="submit" value="Save" class="btn btn-sm btn-primary save-button">
+            {% endif %}
+
+        </section>
+
+    </div>
+    {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'network/post.js' %}"></script>
+{% endblock %}

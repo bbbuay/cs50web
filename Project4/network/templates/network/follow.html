@@ -1,0 +1,87 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+<h2><a href="{% url 'profile' profile_user.id %}">{{profile_user.username}}</a></h2>
+
+<div class="follow-part">
+    <section>
+        <h4>{{profile_follower_number}} Followers</h4>
+        <div class="follower-part">
+            {% for follower in profile_followers %}
+            <div class="follow-element">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <strong><a href="{% url 'profile' follower.id %}">{{follower.username}}</a></strong>
+
+                    <input type="hidden" name="user_id" value="{{follower.id}}">
+
+                    {% if follower.id != user.id %}
+                    {% if follower.username in following_user_usernames %}
+                    <input type="submit" name="unfollow" value="unfollow"
+                        class="btn btn-secondary btn-sm unfollow-button">
+                    {% else %}
+                    <input type="submit" name="follow" value="follow" class="btn btn-sm follow-button">
+                    {% endif %}
+                    {% endif %}
+
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section>
+        <h4>{{profile_following_number}} Following</h4>
+        <div class="following-part">
+            {% for following in profile_followings%}
+
+            <div class="follow-element">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <strong><a href="{% url 'profile' following.id %}">{{following.username}}</a></strong>
+                    <input type="hidden" name="user_id" value="{{following.id}}">
+                    {% if following.id != user.id %}
+
+                    {% if following.username in following_user_usernames %}
+                    <input type="submit" name="unfollow" value="unfollow"
+                        class="btn btn-secondary btn-sm unfollow-button">
+                    {% else %}
+                    <input type="submit" name="follow" value="follow" class="btn btn-sm follow-button">
+                    {% endif %}
+
+                    {% endif %}
+                </form>
+            </div>
+
+            {% endfor %}
+        </div>
+    </section>
+
+    <section>
+        <h4>Suggestion</h4>
+
+        {% for non_following in non_followings_user %}
+
+        <!-- user id 1 is "Admin" -->
+        {% if non_following.id != user.id and non_following.id != 1 %}
+        <div class="follow-element">
+            <form action="" method="post">
+                {% csrf_token %}
+                <strong><a href="{% url 'profile' non_following.id %}">{{non_following.username}}</a></strong>
+
+
+                <input type="hidden" name="user_id" value="{{non_following.id}}">
+                {% if non_following.username in following_user_usernames %}
+                <input type="submit" name="unfollow" value="unfollow" class="btn btn-secondary btn-sm unfollow-button">
+                {% else %}
+                <input type="submit" name="follow" value="follow" class="btn btn-sm follow-button">
+                {% endif %}
+            </form>
+        </div>
+        {% endif %}
+
+        {% endfor %}
+    </section>
+</div>
+{% endblock %}
