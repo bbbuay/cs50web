@@ -1,0 +1,86 @@
+body {
+    background-color: #FFE8E8;
+    padding: 20px;
+    color: #E26868;
+}
+
+h2 {
+    padding: 10px 10px;
+}
+
+hr {
+    border-width: 1.5px;
+}
+
+textarea {
+    min-height: 400px;
+}
+
+h3 {
+    padding: 0px 10px;
+}
+
+.each-email {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    border: 1px solid black;
+    background-color: white;
+    padding: 10px 30px;
+    margin: 0px 0px 10px;
+}
+
+.inner-each-email {
+    width: 35%;
+}
+
+#compose-form {
+    padding: 0px 10px;
+}
+
+.compose-button {
+    text-align: center;
+    padding: 10px 20px;
+    margin: 15px 0px;
+    width: 100%;
+}
+
+.button {
+    padding: 10px 20px;
+    width: 20%;
+    margin-left: 40%;
+}
+
+.archive-button {
+    padding: 5px 20px;
+}
+
+.archive-button,
+.compose-button,
+.button {
+    background-color: #FFB4B4;
+    color: white;
+}
+
+.archive-button:hover,
+.compose-button:hover,
+.button:hover {
+    background-color: #FF9292;
+    color: white;
+}
+
+.read {
+    background-color: #E8EAE6;
+}
+
+.email {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+.inner-email {
+    padding: 0px 10px 10px;
+}
